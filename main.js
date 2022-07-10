@@ -3,6 +3,13 @@ $(document).ready(() => {
 	let canvas=document.getElementById('myCanvas');
 	let ctx = canvas.getContext('2d');
 	let color='none'; //color
+	let r=[['x','x','x'],['x','x','x'],['x','x','x']];
+	let y=[['x','x','x'],['x','x','x'],['x','x','x']];
+	let b=[['x','x','x'],['x','x','x'],['x','x','x']];
+	let g=[['x','x','x'],['x','x','x'],['x','x','x']];
+	let w=[['x','x','x'],['x','x','x'],['x','x','x']];
+	let o=[['x','x','x'],['x','x','x'],['x','x','x']];
+	let countR=0, countY=0, countB=0, countG=0, countW=0, countO=0; //pending
 	makeEmptyGrid(ctx);
 	$('#red').click(()=>{
 		color='red';
@@ -23,13 +30,21 @@ $(document).ready(() => {
 		color='white';
 	});
 	canvas.addEventListener('mousedown',(e)=>{
-		let point = getCursorCoords(canvas, e);
-		let x=point[0];
-		let y=point[1];
-		
-		//if condition for checking of clicking inside grid pending
-		if(color!='none')
-			makeRect(ctx, x, y, true, color);
+		let [j ,i] = getCursorCoords(canvas, e);
+		if(color!='none' && ((i>=3 && i<6) || (j>=3 && j<6))){
+			//counting the colors pending
+			if(j<3){
+				o[i][j]=color[0];
+				//
+			}
+			else if((i>=3 && i<6)&&(j>=3 && j<6)){
+				g[i][j]=(color[0]); /////error
+				// 
+			}
+			////more colors to add :: pending => this is incomplete
+			makeRect(ctx, j, i, true, color);
+		}
+			
 	})
 })
 
