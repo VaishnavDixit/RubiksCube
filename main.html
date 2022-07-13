@@ -1,15 +1,20 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300&display=swap" rel="stylesheet">
 		<title>Rubik's Cube solver</title>
 		<script src="jquery-3.6.0.js"></script>
 		<link rel="stylesheet" href="style.css">
 	</head>
 	<body>
-		<h1>Rubik's cube vis</h1>
+		<h1>Rubik's cube solver</h1>
+		<p>Enter the colors in the net below:</p>
 		<canvas id="myCanvas" width="480px" height="360px">
 			Your browser does not support the HTML canvas tag.
 		</canvas>
+		<button id="clearBtn" class="button">Clear net</button>
 		<p>choose color:</p>
 		<div id="buttons">
 			<button id="red" class="button"></button>
@@ -19,6 +24,7 @@
 			<button id="green" class="button"></button>
 			<button id="white" class="button"></button>
 		</div>
+		<button id="solveBtn" class="button">Solve</button>
 		<script src="main.js"></script>
 	</body>
 </html>

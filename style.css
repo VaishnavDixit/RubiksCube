@@ -1,6 +1,28 @@
-canvas { 
-	border:1px solid #000000;
-	background-color: lightsteelblue;
+canvas {
+	display: block;
+	margin-left: 100px;
+	/* border: 1px solid #000000; */
+	/* background-color: lightsteelblue; */
+}
+*{
+	font-family: 'Montserrat', sans-serif;
+}
+
+h1{
+	text-align: center;
+	font-size: 3em;
+}
+p{
+	text-align: center;
+	font-size: 1.5em;
+}
+
+#solveBtn, #clearBtn{
+	display:block;
+	margin: auto;
+	margin-top: 30px;
+	width: 160px;
+	font-size: 1.5em;
 }
 
 #buttons{
@@ -16,6 +38,7 @@ canvas {
 	border: 2px solid black;
 	border-radius: 30px;
 	transition: .2s ease;
+	cursor: pointer;
 }
 
 .button:hover{
