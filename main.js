@@ -3,16 +3,7 @@ $(document).ready(() => {
 	let canvas = document.getElementById('myCanvas');
 	let ctx = canvas.getContext('2d');
 	let color = 'none'; //color
-	let net =
-		[['-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-'],
-		['-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-'],
-		['-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-'],
-		['-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-'],
-		['-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-'],
-		['-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-'],
-		['-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-'],
-		['-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-'],
-		['-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-']];
+	let net = "------------------------------------------------------";
 	let countR = 0, countY = 0, countB = 0, countG = 0, countW = 0, countO = 0;
 	makeEmptyGrid(ctx);
 	$('#red').click(() => {
@@ -34,16 +25,7 @@ $(document).ready(() => {
 		color = 'white';
 	});
 	$("#clearBtn").click(()=>{
-		net =
-		[['-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-'],
-		['-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-'],
-		['-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-'],
-		['-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-'],
-		['-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-'],
-		['-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-'],
-		['-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-'],
-		['-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-'],
-		['-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-']];
+		net = "------------------------------------------------------";
 		countR = 0;
 		countY = 0;
 		countB = 0;
@@ -55,55 +37,9 @@ $(document).ready(() => {
 	})
 	canvas.addEventListener('mousedown', (e) => {
 		let [j, i] = getCursorCoords(canvas, e);
-		if (color != 'none' && ((i >= 3 && i < 6) || (j >= 3 && j < 6))) {
-			net[i][j] = color[0];
-			if(net[i][j]!='-')
-				switch (net[i][j]) {
-					case 'r':
-						countR--;
-						break;
-					case 'y':
-						countY--;
-						break;
-					case 'b':
-						countB--;
-						break;
-					case 'g':
-						countG--;
-						break;
-					case 'w':
-						countW--;
-						break;
-					case 'o':
-						countO--;
-						break;	
-				}
-			switch (color[0]) {
-				case 'r':
-					countR++;
-					break;
-				case 'y':
-					countY++;
-					break;
-				case 'b':
-					countB++;
-					break;
-				case 'g':
-					countG++;
-					break;
-				case 'w':
-					countW++;
-					break;
-				case 'o':
-					countO++;
-					break;	
-			}
-			makeRect(ctx, j, i, true, color);
-			console.table(net);
-		}
+		let id=getFaceIdAndIndex(i, j);
 	})
-})
-
+});
 function getCursorCoords(canvas, event) {
 	const rect = canvas.getBoundingClientRect();
 	let x = event.clientX - rect.left;
@@ -119,6 +55,14 @@ function makeRect(ctx, x, y, isFilled, color) {
 		ctx.fillRect(x * CUBICLE_SIDE + 1, y * CUBICLE_SIDE + 1, CUBICLE_SIDE - 2, CUBICLE_SIDE - 2);
 	} else {
 		//case to make a line rectangle. not required now.
+	}
+}
+
+function getFaceIdAndIndex(i, j){ //< face Id, index on the face str>
+	let faceId, index;
+	if(i<3){
+		faceId=0;
+		index= (i-i%3)*3 + (j-j%3)
 	}
 }
 
