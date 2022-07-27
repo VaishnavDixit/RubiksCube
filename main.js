@@ -3,12 +3,12 @@ $(document).ready(() => {
 	let canvas = document.getElementById('myCanvas');
 	let ctx = canvas.getContext('2d');
 	let color = 'none'; //color
-	let net = "------------------------------------------------------";
+	let net = ['-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-'];
 	let countR = 0, countY = 0, countB = 0, countG = 0, countW = 0, countO = 0;
 	makeEmptyGrid(ctx);
 	$('#red').click(() => {
 		color = 'red';
-	}); 
+	});
 	$('#blue').click(() => {
 		color = 'blue';
 	});
@@ -24,7 +24,7 @@ $(document).ready(() => {
 	$('#white').click(() => {
 		color = 'white';
 	});
-	$("#clearBtn").click(()=>{
+	$("#clearBtn").click(() => {
 		net = "------------------------------------------------------";
 		countR = 0;
 		countY = 0;
@@ -37,9 +37,16 @@ $(document).ready(() => {
 	})
 	canvas.addEventListener('mousedown', (e) => {
 		let [j, i] = getCursorCoords(canvas, e);
-		let id=getFaceIdAndIndex(i, j);
+		let id = getIndex(i, j);
+		console.log([[i, j], id]);
+		if(id===-1)
+			return;
+		net[id]=color[0];
+		makeRect(ctx, j, i, 1, color);
+		console.log(net);
 	})
 });
+
 function getCursorCoords(canvas, event) {
 	const rect = canvas.getBoundingClientRect();
 	let x = event.clientX - rect.left;
@@ -58,12 +65,19 @@ function makeRect(ctx, x, y, isFilled, color) {
 	}
 }
 
-function getFaceIdAndIndex(i, j){ //< face Id, index on the face str>
+function getIndex(i, j) { //< face Id, index on the face str>
 	let faceId, index;
-	if(i<3){
-		faceId=0;
-		index= (i-i%3)*3 + (j-j%3)
-	}
+	if (i < 3 && j < 6 && j >= 3)
+		faceId = 0;
+	else if (i >= 6 && j < 6 && j >= 3)
+		faceId = 5;
+	else if (i < 6 && i>=3)
+		faceId=Math.floor(j/3)+1;
+	else return -1;
+	i= i%3;
+	j= j%3;
+	let ind=(i*3)+j;
+	return (faceId*9+ind);
 }
 
 function makeEmptyGrid(ctx) { // line width glitch fixing todo
@@ -115,4 +129,9 @@ function makeEmptyGrid(ctx) { // line width glitch fixing todo
 	ctx.lineTo(6 * CUBICLE_SIDE, 8 * CUBICLE_SIDE);
 
 	ctx.stroke();
+}
+
+function R(net){
+	id=3;
+	let temp=net[]
 }
